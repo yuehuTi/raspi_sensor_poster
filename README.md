@@ -1,4 +1,5 @@
 树莓派传感器数据上传yeelink的代码
+
 Notice:
  - 需要smbus库，apt-get install python-smbus安装
  - 使用前修改yeelink_poster.py中的api_key, 在yeelink上面获得
