@@ -58,11 +58,15 @@ class SHT20(Sensor.Sensor):
 
     def GetData(self):
         return [{
+                    "name": "AP(SHT20)",
+                    "symbol": "C",
                     "device": DeviceID,
                     "sensor": Tempature_SenorID,
                     "data": "%.2f" %getTemperature(self.bus)
                 },
                 {
+                    "name": "RH",
+                    "symbol": "Perc",
                     "device": DeviceID,
                     "sensor": RH_SenorID,
                     "data": "%.2f" %getRHumidity(self.bus)

@@ -17,6 +17,8 @@ class RasPi(Sensor.Sensor):
         res = os.popen('vcgencmd measure_temp').readline()
         temparure = res.replace("temp=","").replace("'C\n","")
         return [{
+                    "name": "CPU Temp",
+                    "symbol": "C",
                     "device": device_id,
                     "sensor": sensor_id,
                     "data": temparure
