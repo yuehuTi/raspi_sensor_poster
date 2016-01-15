@@ -95,7 +95,7 @@ def showSensors():
             time.sleep(5)
             
 
-def initLCD():
+def initLCD_DVK512():
     global lcdFD
 
     RS = 3
@@ -108,10 +108,28 @@ def initLCD():
     wiringpi.wiringPiSetup()
     lcdFD = wiringpi.lcdInit(2, 16, 4, RS, EN, D0, D1, D2, D3, 0, 0, 0, 0);
 
+def initLCD_Custom():
+    global lcdFD
+
+    RS = 11
+    EN = 10
+    D0 = 0
+    D1 = 1
+    D2 = 2
+    D3 = 3
+    D4 = 4
+    D5 = 5
+    D6 = 6
+    D7 = 7
+
+    wiringpi.wiringPiSetup()
+    lcdFD = wiringpi.lcdInit(2, 16, 8, RS, EN, D0, D1, D2, D3, D4, D5, D6, D7);
+
 
 if __name__ == '__main__':    
     load_sensors()
-    initLCD()
+    initLCD_DVK512()
+    #initLCD_Custom()
 
     thread.start_new_thread(run, ())
     showSensors()
