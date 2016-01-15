@@ -9,6 +9,8 @@ import requests
 import json
 import wiringpi2 as wiringpi
 
+DVK512 = True
+
 api_url='http://api.yeelink.net/v1.0'
 api_key=your_api_key
 api_headers={'U-ApiKey':api_key,'content-type': 'application/json'}
@@ -128,8 +130,10 @@ def initLCD_Custom():
 
 if __name__ == '__main__':    
     load_sensors()
-    initLCD_DVK512()
-    #initLCD_Custom()
+    if DVK512:
+        initLCD_DVK512()
+    else:    
+        initLCD_Custom()
 
     thread.start_new_thread(run, ())
     showSensors()
