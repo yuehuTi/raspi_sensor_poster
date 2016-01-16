@@ -2,7 +2,7 @@
 
 Notice:
  - 相关的python库：
-   -python-smbus python-serial库:apt-get install python-smbus python-serial
+   - python-smbus python-serial库:apt-get install python-smbus python-serial
    - python的wiringpi2: pip install wiringpi2
  - lcd1602如果没有使用dvk512扩展板，需要到yeelink_poster.py里修改DVK512为False
  - 使用前修改yeelink_poster.py中的api_key, 注册yeelink获得
