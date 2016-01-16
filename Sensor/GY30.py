@@ -22,7 +22,7 @@ class GY30(Sensor.Sensor):
         data = self.bus.read_i2c_block_data(GY30_addr, 0x11)
         value = (data[1] + (256 * data[0])) / 1.2
         return [{
-                    "name": "Lux(GY30)",
+                    "name": "Luminous intensity",
                     "symbol": "lux",
                     "device": DeviceID,
                     "sensor": Light_SenorID,

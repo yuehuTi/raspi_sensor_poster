@@ -18,6 +18,7 @@ class PMS5003(Sensor.Sensor):
 
     def GetData(self):
         while True:
+            # 获得接收缓冲区字符
             count = self.ser.inWaiting()
             if count >=32:
                 recv = self.ser.read(32)

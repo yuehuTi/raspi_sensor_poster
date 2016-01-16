@@ -77,23 +77,16 @@ def showSensors():
     global datas
 
     while True:
-        ret = False
         threadLock.acquire()
         lst = datas
         threadLock.release()
-        for x in xrange(0, len(lst), 2):
+        for x in xrange(0, len(lst)):
             wiringpi.lcdClear(lcdFD)
             data1 = lst[x]
             wiringpi.lcdPosition(lcdFD, 0,0)
-            wiringpi.lcdPrintf(lcdFD,"%s:%s%s"%(data1["name"],data1["data"],data1["symbol"]))
-    
-            if x+1 < len(lst):
-                data2 = lst[x+1]            
-                wiringpi.lcdPosition(lcdFD, 0,1)
-                wiringpi.lcdPrintf(lcdFD,"%s:%s%s"%(data2["name"],data2["data"],data2["symbol"]))
-            ret = True
-            time.sleep(5)
-        if ret != True:
+            wiringpi.lcdPrintf(lcdFD,"%s:"%(data1["name"]))
+            wiringpi.lcdPosition(lcdFD, 0,1)
+            wiringpi.lcdPrintf(lcdFD,"%s%s"%(data1["data"],data1["symbol"]))
             time.sleep(5)
             
 

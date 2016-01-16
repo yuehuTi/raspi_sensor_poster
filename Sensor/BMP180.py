@@ -91,14 +91,14 @@ class BMP180(Sensor.Sensor):
         pressure = pressure/100.0
 
         return [{
-                    "name": "AT(BMP180)",
+                    "name": "Tempature-BMP180",
                     "symbol": "C",
                     "device": DeviceID,
                     "sensor": Tempature_SenorID,
                     "data": temperature
                 },
                 {
-                    "name": "AP",
+                    "name": "Air Pressure",
                     "symbol": "hPa",
                     "device": DeviceID,
                     "sensor": Pressure_SenorID,
