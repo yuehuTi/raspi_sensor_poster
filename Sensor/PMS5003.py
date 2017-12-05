@@ -14,11 +14,12 @@ PM10_SenorID = your_SenorID
 class PMS5003(Sensor.Sensor):
     def __init__(self):
         super(PMS5003, self).__init__()
-        self.ser = serial.Serial("/dev/ttyAMA0", 9600)
+        
 
     def GetData(self):
         while True:
             # 获得接收缓冲区字符
+            self.ser = serial.Serial("/dev/ttyAMA0", 9600)
             count = self.ser.inWaiting()
             if count >=32:
                 recv = self.ser.read(32)
@@ -28,7 +29,7 @@ class PMS5003(Sensor.Sensor):
 
                 if sign1 == 0x42 and sign2 == 0x4d:
                     break
-                self.ser.flushInput()
+            self.ser.close()
             time.sleep(1)
         return [{
                     "name": "PM2.5",
