@@ -21,28 +21,23 @@ TVOC_SenorID = "TVOC"
 class M701SC(Sensor.Sensor):
     def __init__(self):
         super(M701SC, self).__init__()
-        sleep(2*60) #HCHO、CO2、TVOC warmup time
+        time.sleep(2*60) #HCHO、CO2、TVOC warmup time
 
     def GetData(self):
         ser = serial.Serial("/dev/ttyAMA0", 9600)
         # 获得接收缓冲区字符
-        while ser.read() != chr(0x3c):
-            continue
+        sign1 = ser.read()
+        while sign1 != chr(0x3c):
+            sign1 = ser.read()
         recv = ser.read(16)
 
-        sign2,eCO2_H,eCO2_L,eCH2O_H,eCH2O_L,TVOC_H,TVOC_L,pm2_5_H,pm2_5_L,pm10_H,pm10_L,temp_I,temp_F,humi_I,humi_F,checksum = struct.unpack(">bbbbbbbbbbbbbbbb", recv)
+        sign2,eCO2,eCH2O,TVOC,pm2_5,pm10,temp_I,temp_F,humi_I,humi_F,checksum = struct.unpack(">bHHHHHbBbBb", recv)
 
-        # print sign2,eCO2_H,eCO2_L,eCH2O_H,eCH2O_L,TVOC_H,TVOC_L,pm2_5_H,pm2_5_L,pm10_H,pm10_L,temp_I,temp_F,humi_I,humi_F,checksum
         if sign2 != 0x2:
             return []
 
-        eCO2 = eCO2_H*256+eCO2_L
-        eCH2O = eCH2O_H*256+eCH2O_L
-        TVOC = TVOC_H*256+TVOC_L
-        pm2_5 = pm2_5_H*256+pm2_5_L
-        pm10 = pm10_H*256+pm10_L
-        Temperature = temp_I+temp_F*0.1
-        Humidity = humi_I+humi_F*0.1
+        # Temperature = (float(temp_I&0x7f)+temp_F*0.1)*((temp_I>>7)*2-1)*-1
+        # Humidity = (float(humi_I&0x7f)+humi_F*0.1)*((humi_I>>7)*2-1)*-1
 
         # print "CO2:%d, HCHO:%d, TVOC:%d, pm2_5:%d, pm10:%d, Temperature:%.2f, Humidity:%.2f"%(eCO2,eCH2O,TVOC,pm2_5,pm10,Temperature,Humidity)
         ser.flushInput()
