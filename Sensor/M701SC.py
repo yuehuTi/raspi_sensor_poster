@@ -32,7 +32,7 @@ class M701SC(Sensor.Sensor):
 
         sign2,eCO2_H,eCO2_L,eCH2O_H,eCH2O_L,TVOC_H,TVOC_L,pm2_5_H,pm2_5_L,pm10_H,pm10_L,temp_I,temp_F,humi_I,humi_F,checksum = struct.unpack(">bbbbbbbbbbbbbbbb", recv)
 
-        print sign2,eCO2_H,eCO2_L,eCH2O_H,eCH2O_L,TVOC_H,TVOC_L,pm2_5_H,pm2_5_L,pm10_H,pm10_L,temp_I,temp_F,humi_I,humi_F,checksum
+        # print sign2,eCO2_H,eCO2_L,eCH2O_H,eCH2O_L,TVOC_H,TVOC_L,pm2_5_H,pm2_5_L,pm10_H,pm10_L,temp_I,temp_F,humi_I,humi_F,checksum
         if sign2 != 0x2:
             return []
 
@@ -44,7 +44,7 @@ class M701SC(Sensor.Sensor):
         Temperature = temp_I+temp_F*0.1
         Humidity = humi_I+humi_F*0.1
 
-        print "CO2:%d, HCHO:%d, TVOC:%d, pm2_5:%d, pm10:%d, Temperature:%.2f, Humidity:%.2f"%(eCO2,eCH2O,TVOC,pm2_5,pm10,Temperature,Humidity)
+        # print "CO2:%d, HCHO:%d, TVOC:%d, pm2_5:%d, pm10:%d, Temperature:%.2f, Humidity:%.2f"%(eCO2,eCH2O,TVOC,pm2_5,pm10,Temperature,Humidity)
         ser.flushInput()
         ser.close()
         return [{
